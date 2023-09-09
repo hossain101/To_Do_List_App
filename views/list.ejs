@@ -10,25 +10,16 @@
 
     <h2><%= kindOfDay %></h2>
 
-
-
     <ul>
-        <li>Buy Food</li>
-        <li>Cook Food</li>
-        <li>Eat Food</li>
+      <% for (var i = 0; i < newListItems.length; i++) { %> <%
+      if(newListItems[i]!="") {%>
+      <li><%= newListItems[i] %></li>
+      <% } %> <% } %>
+    </ul>
 
-        <% for (var i = 0; i < newListItems.length; i++) { %>
-          <li><%= newListItems[i] %></li>
-        <% } %>
-        
-      </ul>
-  
-      <form action="/" method="post" class="">
-        <input type="text" name="newItem" id="" />
-        <button type="submit" name="button">Add</button>
-      </form>
-
-
-
+    <form action="/" method="post" class="" required>
+      <input type="text" name="newItem" id="" required maxlength="150" />
+      <button type="submit" name="button">Add</button>
+    </form>
   </body>
 </html>
