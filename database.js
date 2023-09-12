@@ -1,42 +1,28 @@
 const mongoose = require("mongoose");
-const { MongoClient, ServerApiVersion } = require("mongodb");
-
 require("dotenv").config();
 
 const USERNAME = process.env.USER_NAME;
 const PASSWORD = process.env.PASSWORD;
-const DATABASE = process.env.DATABASE;
-
-const uri = `mongodb+srv://${USERNAME}:${PASSWORD}@tasklist.ljckuad.mongodb.net/?retryWrites=true&w=majority`;
 
 
+const uri = `mongodb+srv://${USERNAME}:${PASSWORD}@tasklist.ljckuad.mongodb.net/tasks?retryWrites=true&w=majority`;
 
 
 
-class Database{
-    constructor(){
+class Database {
+    constructor() {
         this._connect();
     }
-    
 
- async _connect(){
-        try{
-            await mongoose.connect(uri);
-            console.log("Database connection successful");
-        }catch(err){
-            console.log("Database connection failed");
-
-            console.log(err);
-
-        }
-        
-    }
-
-    async _getClient(){
-        mongoose.connection.getClient();
+    _connect() {
+        mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+            .then(() => {
+                console.log("Database connection successful");
+            })
+            .catch(err => {
+                console.error("Database connection error");
+            })
     }
 }
 
 module.exports = new Database();
-
-
