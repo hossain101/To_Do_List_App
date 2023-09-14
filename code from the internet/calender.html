@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calendar</title>
+    <link rel="stylesheet" href="calender.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/92cbb6ec06.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="calendar-icon" id="calendar-icon">
+      <i class="fas fa-calendar"> </i>
+    </div>
+
+    <div class="calendar-popup" id="calendar-popup">
+      <div class="calendar-header">
+        <span id="month-year"></span>
+        <span class="close-button" id="close-calendar">&times;</span>
+      </div>
+      <div class="calendar-days" id="calendar-days"></div>
+    </div>
+
+    <script src="calender.js"></script>
+  </body>
+</html>
