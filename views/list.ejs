@@ -2,33 +2,164 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To Do List</title>
+
+    <title>Hossain To-Do List</title>
+
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    /> -->
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/calendar.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="/js/calender.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script> -->
+
+    <!-- MDB core JavaScript -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script> -->
+    <script>
+      window.console = window.console || function (t) {};
+    </script>
   </head>
   <body>
-    <h1>Hossain's TO-DO List APP</h1>
+    <section class="vh-150" style="background-color: #eee">
+      <div class="py-4">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="col col-lg-9 col-xl-7">
+            <div class="card rounded-3 content-body-card">
+              <div class="card-body">
+                <h2 class="text-center my-3 pb-3 date-title">
+                  <%= kindOfDay %>
+                </h2>
+
+                <table class="table mb-4">
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Todo item</th>
+                      <th scope="col">Added</th>
+                      <th scope="col">Due</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for (let i = 0; i < newListItems.length; i++) { %>
+                    <tr>
+                      <th scope="row"><%= i + 1 %></th>
+                      <td><%= newListItems[i] %></td>
+                      <td><%=addedDate[i]%></td>
+                      <td>xx/xx/xx</td>
+                      <td>Pending</td>
+                      <td>
+                        <button type="submit" class="btn btn-success ms-1">
+                          Finished
+                        </button>
+                      </td>
+                      <td>
+                        <button type="submit" class="btn btn-dark ms-1">
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+                <form action="/" method="post" required>
+                  <div class="row m-1 p-3">
+                    <div class="col col-11 mx-auto">
+                      <div
+                        class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center"
+                      >
+                        <div class="col">
+                          <input
+                            class="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
+                            type="text"
+                            placeholder="Add New Task.."
+                            name="newItem"
+                            required
+                            maxlength="150"
+                          />
+                        </div>
+                        <div
+                          class="col-auto m-0 px-2 d-flex align-items-center"
+                        >
+                          <i
+                            id="calendar-icon"
+                            class="fa fa-calendar my-2 px-1 text-primary btn due-date-button"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Set a Due date"
+                          ></i>
+                          <div id="calendar-popup" class="calendar-popup">
+                            <div class="calendar-header">
+                              <span id="month-year"></span>
+                              <span class="close-button" id="close-calendar"
+                                >&times;</span
+                              >
+                            </div>
+                            <div class="calendar-days" id="calendar-days"></div>
+                          </div>
+                        </div>
+                   
+
+                        <div class="col-auto px-0 mx-0 mr-2">
+                          <button
+                            type="submit"
+                            name="button"
+                            class="btn btn-primary"
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+
+    <!-- <h1>Hossain's TO-DO List APP</h1>
 
     <h2><%= kindOfDay %></h2>
 
-
-
     <ul>
-        <li>Buy Food</li>
-        <li>Cook Food</li>
-        <li>Eat Food</li>
+      <% for (var i = 0; i < newListItems.length; i++) { %> <%
+      if(newListItems[i]!="") {%>
+      <li><%= newListItems[i] %></li>
+      <% } %> <% } %>
+    </ul>
 
-        <% for (var i = 0; i < newListItems.length; i++) { %>
-          <li><%= newListItems[i] %></li>
-        <% } %>
-        
-      </ul>
-  
-      <form action="/" method="post" class="">
-        <input type="text" name="newItem" id="" />
-        <button type="submit" name="button">Add</button>
-      </form>
-
-
-
+    <form action="/" method="post" class="" required>
+      <input type="text" name="newItem" id="" required maxlength="150" />
+      <button type="submit" name="button">Add</button>
+    </form> -->
   </body>
 </html>
