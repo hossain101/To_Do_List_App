@@ -55,9 +55,11 @@ app.post("/", function (req, res) {
 
 // launch ======================================================================
 app.listen(process.env.PORT || 3000, function () {
+
   if(process.env.PORT){
     console.log("Server started on port " + process.env.PORT);
   }else{
     console.log("Server started on port 3000");
   }
+
 });
