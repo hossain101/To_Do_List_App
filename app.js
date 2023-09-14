@@ -10,6 +10,8 @@ const Task = require(__dirname + "/models/Task.js");
 
 // configuration ===============================================================
 
+
+
 app.set("view engine", "ejs"); // set up ejs for templating
 
 app.use(bodyParser.urlencoded({ extended: true })); // get information from html forms
@@ -34,6 +36,7 @@ app.get("/", async function (req, res) {
     kindOfDay: titleDay,
     newListItems: descriptions,
     addedDate: addedDates,
+    
   });
   descriptions = [];
   addedDates = [];
@@ -52,6 +55,7 @@ app.post("/", function (req, res) {
 
   res.redirect("/");
 });
+
 
 // launch ======================================================================
 app.listen(process.env.PORT || 3000, function () {

@@ -10,3 +10,12 @@ body {
 .date-title{
     color: #000;
 }
+
+input[type= "checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+
+.completed {
+    text-decoration: line-through;
+  }
