@@ -33,6 +33,7 @@
     />
     <script src="/js/calender.js"></script>
     <script src="/js/checkbox.js"></script>
+    <script src="/js/edit_task.js"></script>
     <!-- Bootstrap core JavaScript -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script> -->
 
@@ -74,30 +75,44 @@
                         <input
                           type="checkbox"
                           class="form-check-input"
-                          id="checkbox<%= i %>"
-                          
+                          id="checkbox"
+                        
                         />
                       </td>
-                 
-                
-                      <td class="todo-item">
-                        <%= newListItems[i] %>
-                      </td>
+
+                      <td class="todo-item"><%= newListItems[i] %></td>
                       <td class="task-description"><%= addedDate[i] %></td>
                       <td>xx/xx/xx</td>
                       <td>Pending</td>
-                     
+
                       <td>
-                        <button type="submit" class="btn btn-dark ms-1">
+                        <form action="/" method="post" >
+                        <button
+                          type="button"
+                          class="btn btn-dark ms-1 edit-btn"
+                          name="edit_btn"
+                          type="submit"
+                          value="<%= i %>"
+                          id="edit_btn"
+                          
+                        >
                           Edit
                         </button>
+                        <button
+                          type="button"
+                          class="btn btn-primary ms-1 save-btn"
+                          style="display: none"
+                          
+                        >
+                          Save
+                        </button>
+                      </form>
                       </td>
                     </tr>
                     <% } %>
                   </tbody>
                 </table>
-                
-              
+
                 <form action="/" method="post" required>
                   <div class="row m-1 p-3">
                     <div class="col col-11 mx-auto">
@@ -155,21 +170,5 @@
         </div>
       </div>
     </section>
-
-    <!-- <h1>Hossain's TO-DO List APP</h1>
-
-    <h2><%= kindOfDay %></h2>
-
-    <ul>
-      <% for (var i = 0; i < newListItems.length; i++) { %> <%
-      if(newListItems[i]!="") {%>
-      <li><%= newListItems[i] %></li>
-      <% } %> <% } %>
-    </ul>
-
-    <form action="/" method="post" class="" required>
-      <input type="text" name="newItem" id="" required maxlength="150" />
-      <button type="submit" name="button">Add</button>
-    </form> -->
   </body>
 </html>

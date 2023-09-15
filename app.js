@@ -47,14 +47,37 @@ app.get("/", async function (req, res) {
 app.post("/", function (req, res) {
   console.log(req.body.newItem);
 
+  //saving task to database
   const task = new Task({
     taskDescription: req.body.newItem,
     addedDate: listDate.addedDate,
   });
   task.save();
 
+
+
   res.redirect("/");
+}); 
+
+app.post("/edit-task", function (req, res) {
+  const { index, editedText } = req.body;
+
+  // Update the task in the database (you should define the Task model and database connection)
+  Task.findOneAndUpdate(
+      { /* Add your query to find the task by index or any other identifier */ },
+      { taskDescription: editedText },
+      { new: true },
+      function (err, updatedTask) {
+          if (err) {
+              console.error(err);
+              res.json({ success: false, message: "Error updating task" });
+          } else {
+              res.json({ success: true, editedText: updatedTask.taskDescription });
+          }
+      }
+  );
 });
+
 
 
 // launch ======================================================================
