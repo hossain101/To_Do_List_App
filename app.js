@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const listDate = require(__dirname + "/todayDate.js");
 const database = require(__dirname + "/database.js");
-const Task = require(__dirname + "/models/Task.js");
+
 
 // configuration ===============================================================
 
@@ -14,6 +14,16 @@ app.set("view engine", "ejs"); // set up ejs for templating
 
 app.use(bodyParser.urlencoded({ extended: true })); // get information from html forms
 app.use(express.static(__dirname + "/public")); // set the static files location /public/img will be /img for users
+
+
+
+// routes ======================================================================
+
+// index page
+app.get("/", function(req, res){
+
+  res.render("index", {listTitle: listDate.titleDay, newListItems: database.items});
+});
 
 
 
