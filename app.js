@@ -6,11 +6,9 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const listDate = require(__dirname + "/todayDate.js");
 const database = require(__dirname + "/database.js");
-const Task = require(__dirname + "/models/Task.js");
+
 
 // configuration ===============================================================
-
-
 
 app.set("view engine", "ejs"); // set up ejs for templating
 
@@ -85,11 +83,9 @@ app.post('/delete', (req, res) => {
 
 // launch ======================================================================
 app.listen(process.env.PORT || 3000, function () {
-
-  if(process.env.PORT){
+  if (process.env.PORT) {
     console.log("Server started on port " + process.env.PORT);
-  }else{
+  } else {
     console.log("Server started on port 3000");
   }
-
 });
