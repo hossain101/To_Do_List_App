@@ -21,6 +21,8 @@ var titleDay = listDate.titleDay; //get today's date
 console.log(titleDay);
 
 var descriptions = []; // array of items
+var deleteDecsriptions = []; // array of items
+var taskId = []; // array of ids
 var addedDates = []; // array of dates
 // array of ids
 
@@ -29,6 +31,7 @@ app.get("/", async function (req, res) {
     tasks.forEach((task) => {
       descriptions.push(task.taskDescription);
       addedDates.push(task.addedDate);
+      taskId.push(task._id);
     });
   });
 
@@ -36,12 +39,13 @@ app.get("/", async function (req, res) {
     kindOfDay: titleDay,
     newListItems: descriptions,
     addedDate: addedDates,
+    taskId: taskId,
     
   });
   descriptions = [];
   addedDates = [];
 
-  //res.render("list", { kindOfDay: day, newListItems: items }); // Since, the list.ejs file is in the views folder, the render function will automatically look for the file in the views folder.
+ 
 });
 
 app.post("/", function (req, res) {
@@ -54,28 +58,27 @@ app.post("/", function (req, res) {
   });
   task.save();
 
-
-
   res.redirect("/");
 }); 
 
-app.post("/edit-task", function (req, res) {
-  const { index, editedText } = req.body;
 
-  // Update the task in the database (you should define the Task model and database connection)
-  Task.findOneAndUpdate(
-      { /* Add your query to find the task by index or any other identifier */ },
-      { taskDescription: editedText },
-      { new: true },
-      function (err, updatedTask) {
-          if (err) {
-              console.error(err);
-              res.json({ success: false, message: "Error updating task" });
-          } else {
-              res.json({ success: true, editedText: updatedTask.taskDescription });
-          }
-      }
-  );
+//delete task
+
+app.post('/delete', (req, res) => {
+  // Access the taskId from the request body
+  const taskId = req.body.delete_btn;
+
+  
+  console.log('taskId:', taskId);
+
+  //Delete the task from the database
+
+  Task.deleteOne({ _id: taskId}, ).then(() => {
+    console.log("Deleted");
+    res.redirect("/");
+  });
+
+
 });
 
 

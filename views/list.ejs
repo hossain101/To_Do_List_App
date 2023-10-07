@@ -76,7 +76,6 @@
                           type="checkbox"
                           class="form-check-input"
                           id="checkbox"
-                        
                         />
                       </td>
 
@@ -86,27 +85,40 @@
                       <td>Pending</td>
 
                       <td>
-                        <form action="/" method="post" >
-                        <button
-                          type="button"
-                          class="btn btn-dark ms-1 edit-btn"
-                          name="edit_btn"
-                          type="submit"
-                          value="<%= i %>"
-                          id="edit_btn"
-                          
-                        >
-                          Edit
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-primary ms-1 save-btn"
-                          style="display: none"
-                          
-                        >
-                          Save
-                        </button>
-                      </form>
+                        <form action="/" method="post">
+                          <button
+                            type="button"
+                            class="btn btn-dark ms-1 edit-btn"
+                            name="edit_btn"
+                            type="submit"
+                            value="<%= taskId[i] %>"
+                            id="edit_btn"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-primary ms-1 save-btn"
+                            style="display: none"
+                          >
+                            Save
+                          </button>
+                        </form>
+                      </td>
+                      <td>
+                        <form action="/delete" method="post" required>
+                          <button
+                            
+                            class="btn btn-dark ms-1 delete-btn"
+                            name="delete_btn"
+                            type="submit"
+                            value="<%=taskId[i]%>"
+                            id="delete_btn"
+                            onclick="this.form.submit()"
+                          >
+                            Delete
+                          </button>
+                        </form>
                       </td>
                     </tr>
                     <% } %>
