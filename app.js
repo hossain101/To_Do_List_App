@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const listDate = require(__dirname + "/todayDate.js");
 const database = require(__dirname + "/database.js");
+const Task = require(__dirname + "/models/Task.js");
 
 
 // configuration ===============================================================
@@ -22,6 +23,7 @@ var descriptions = []; // array of items
 var deleteDecsriptions = []; // array of items
 var taskId = []; // array of ids
 var addedDates = []; // array of dates
+var completed = [];
 // array of ids
 
 app.get("/", async function (req, res) {
@@ -30,6 +32,7 @@ app.get("/", async function (req, res) {
       descriptions.push(task.taskDescription);
       addedDates.push(task.addedDate);
       taskId.push(task._id);
+      completed.push(task.completed);
     });
   });
 
@@ -38,15 +41,19 @@ app.get("/", async function (req, res) {
     newListItems: descriptions,
     addedDate: addedDates,
     taskId: taskId,
+    isComplete: completed,
     
   });
   descriptions = [];
   addedDates = [];
+  taskId = [];
+  completed = [];
+
 
  
 });
 
-app.post("/", function (req, res) {
+app.post("/", async function (req, res) {
   console.log(req.body.newItem);
 
   //saving task to database
@@ -54,7 +61,7 @@ app.post("/", function (req, res) {
     taskDescription: req.body.newItem,
     addedDate: listDate.addedDate,
   });
-  task.save();
+  await task.save();
 
   res.redirect("/");
 }); 
@@ -62,7 +69,7 @@ app.post("/", function (req, res) {
 
 //delete task
 
-app.post('/delete', (req, res) => {
+app.post('/delete', async (req, res) => {
   // Access the taskId from the request body
   const taskId = req.body.delete_btn;
 
@@ -71,13 +78,73 @@ app.post('/delete', (req, res) => {
 
   //Delete the task from the database
 
-  Task.deleteOne({ _id: taskId}, ).then(() => {
+   await Task.deleteOne({ _id: taskId}, ).then(() => {
     console.log("Deleted");
     res.redirect("/");
   });
 
 
 });
+
+
+// app.post("/update-task/:taskId", (req, res) => {
+//   const taskId = req.params.taskId;
+//   const newText = req.body.updatedText; // Assuming you have an input field with name="updatedText" in your form
+
+//   // Update the document in the database
+//   YourModel.findByIdAndUpdate(
+//     taskId,
+//     { taskDescription: newText },
+//     { new: true },
+//     (err, updatedTask) => {
+//       if (err) {
+//         console.error(err);
+//         // Handle the error and respond accordingly
+//         res.status(500).send("Error updating the task.");
+//       } else {
+//         // Redirect or respond as needed after updating the task
+//         res.redirect("/"); // Redirect to the home page or your task list page
+//       }
+//     }
+//   );
+// });
+
+app.post('/check', async (req, res) => {
+  // Access the taskId from the request body
+  const taskId = req.body.checkbox_id  ;
+
+  // Find the task in the database and update the completed field
+
+  await Task.findOne({_id: taskId}).then((task) => {
+    task.completed = !task.completed;
+    task.save();
+    res.redirect("/");
+  });
+
+
+  
+
+  // await Task.findOneAndUpdate({_id: taskId}, {$inc:{sold: !this.sold}}).then(() => {
+  //   console.log("Updated");
+    
+  // });
+
+  // await Task.findOneAndUpdate({_id: taskId}, {completed: !this.completed}).then(() => {
+
+  //   console.log("Updated");
+  //   res.redirect("/");
+  // }
+  // );
+  
+ // console.log('taskId:', taskId);
+
+  //Delete the task from the database
+
+
+
+
+});
+
 
 
 

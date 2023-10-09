@@ -32,7 +32,7 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="/js/calender.js"></script>
-    <script src="/js/checkbox.js"></script>
+   
     <script src="/js/edit_task.js"></script>
     <!-- Bootstrap core JavaScript -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script> -->
@@ -72,11 +72,32 @@
                     <tr>
                       <th scope="row"><%= i + 1 %></th>
                       <td>
-                        <input
-                          type="checkbox"
-                          class="form-check-input"
-                          id="checkbox"
-                        />
+                        <form action="/check" method="post" required>
+                          <input
+                           
+                            class="form-check-input"
+                            id="checkbox"
+                            
+                            name="checkbox_btn"
+                            
+                            type="checkbox"
+                            value="<%=isComplete[i]%>"
+
+                            <% if(isComplete[i] == 1) { %>
+                              checked
+                            <% } %>
+
+                            
+                            onclick="this.form.submit()"
+                          />
+
+                          <input
+                            type="hidden"
+                            name="checkbox_id"
+                            value="<%=taskId[i]%>"
+                          />
+                         
+                        </form>
                       </td>
 
                       <td class="todo-item"><%= newListItems[i] %></td>
@@ -85,12 +106,11 @@
                       <td>Pending</td>
 
                       <td>
-                        <form action="/" method="post">
+                        <form action="/edit" method="post">
                           <button
-                            type="button"
                             class="btn btn-dark ms-1 edit-btn"
                             name="edit_btn"
-                            type="submit"
+                            type="button"
                             value="<%= taskId[i] %>"
                             id="edit_btn"
                           >
@@ -103,12 +123,17 @@
                           >
                             Save
                           </button>
+                          <input
+                            type="submit"
+                            name="updatedText"
+                            class="form-control"
+                            style="display: none"
+                          />
                         </form>
                       </td>
                       <td>
                         <form action="/delete" method="post" required>
                           <button
-                            
                             class="btn btn-dark ms-1 delete-btn"
                             name="delete_btn"
                             type="submit"
@@ -182,5 +207,6 @@
         </div>
       </div>
     </section>
+    <script src="/js/checkbox.js"></script>
   </body>
 </html>
